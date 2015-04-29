@@ -6,7 +6,7 @@ function IScroll (el, options) {
 
 	this.options = {
 
-// INSERT POINT: OPTIONS 
+// INSERT POINT: OPTIONS
 
 		startX: 0,
 		startY: 0,
@@ -57,7 +57,7 @@ function IScroll (el, options) {
 
 // INSERT POINT: NORMALIZATION
 
-	// Some defaults	
+	// Some defaults
 	this.x = 0;
 	this.y = 0;
 	this.directionX = 0;
@@ -249,11 +249,24 @@ IScroll.prototype = {
 
 	},
 
+	// User-defined method for stopping scroll
+	stop: function (e) {
+		if ( !this.enabled ) {
+			return;
+		}
+
+		this._doEnd(e);
+	},
+
 	_end: function (e) {
 		if ( !this.enabled || utils.eventType[e.type] !== this.initiated ) {
 			return;
 		}
 
+		this._doEnd(e);
+	},
+
+	_doEnd: function (e) {
 		if ( this.options.preventDefault && !utils.preventDefaultException(e.target, this.options.preventDefaultException) ) {
 			e.preventDefault();
 		}
